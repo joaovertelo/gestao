@@ -1,0 +1,83 @@
+<div>
+    <h2>
+        <span jhiTranslate="gestaoApp.pedidoProduto.home.title">Pedido Produtos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-pedido-produto" [routerLink]="['/', { outlets: { popup: ['pedido-produto-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="gestaoApp.pedidoProduto.home.createLabel">
+            Create new Pedido Produto
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gestaoApp.pedidoProduto.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="pedidoProdutos">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gestaoApp.pedidoProduto.quantidade">Quantidade</span></th>
+            <th><span jhiTranslate="gestaoApp.pedidoProduto.preco">Preco</span></th>
+            <th><span jhiTranslate="gestaoApp.pedidoProduto.pedido">Pedido</span></th>
+            <th><span jhiTranslate="gestaoApp.pedidoProduto.produto">Produto</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pedidoProduto of pedidoProdutos ;trackBy: trackId">
+                <td><a [routerLink]="['../pedido-produto', pedidoProduto.id ]">{{pedidoProduto.id}}</a></td>
+                <td>{{pedidoProduto.quantidade}}</td>
+                <td>{{pedidoProduto.preco}}</td>
+                <td>
+                    <div *ngIf="pedidoProduto.pedido">
+                        <a [routerLink]="['../pedido', pedidoProduto.pedido?.id ]" >{{pedidoProduto.pedido?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="pedidoProduto.produto">
+                        <a [routerLink]="['../produto', pedidoProduto.produto?.id ]" >{{pedidoProduto.produto?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../pedido-produto', pedidoProduto.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'pedido-produto/'+ pedidoProduto.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'pedido-produto/'+ pedidoProduto.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

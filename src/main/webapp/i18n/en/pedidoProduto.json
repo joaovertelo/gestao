@@ -1,0 +1,25 @@
+{
+    "gestaoApp": {
+        "pedidoProduto" : {
+            "home": {
+                "title": "Pedido Produtos",
+                "createLabel": "Create a new Pedido Produto",
+                "createOrEditLabel": "Create or edit a Pedido Produto",
+                "search": "Search for Pedido Produto"
+            },
+            "created": "A new Pedido Produto is created with identifier {{ param }}",
+            "updated": "A Pedido Produto is updated with identifier {{ param }}",
+            "deleted": "A Pedido Produto is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Pedido Produto {{ id }}?"
+            },
+            "detail": {
+                "title": "Pedido Produto"
+            },
+            "quantidade": "Quantidade",
+            "preco": "Preco",
+            "pedido": "Pedido",
+            "produto": "Produto"
+        }
+    }
+}

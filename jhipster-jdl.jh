@@ -1,19 +1,12 @@
 
 entity Cliente {
 	nome String required minlength(5),
-    dataNasc Timestamp required, 
+    dataNasc ZonedDateTime required, 
     telefone String
 }
 
 entity Pedido {
-	data Timestamp
-}
-
-entity PedidoProduto {
-	pedido Pedido,
-    produto Produto,
-    quantidade Integer,
-    preco Integer
+	data ZonedDateTime
 }
 
 entity Produto {
@@ -21,13 +14,21 @@ entity Produto {
     preco Double required
 }
 
-entity TipoProduto {
+
+entity Categoria {
 	nome String required
 }
 
+entity PedidoProduto {
+    quantidade Integer,
+    preco Integer
+}
 relationship OneToMany {
 	Cliente{pedido} to Pedido,
 	Pedido{pedidoProduto} to PedidoProduto,
-    Produto{pedidoProduto} to PedidoProduto,
-	Produto{tipoProduto} to TipoProduto
+    Produto{pedidoProduto} to PedidoProduto
+}
+
+relationship ManyToOne {
+	Produto{categoria} to Categoria
 }

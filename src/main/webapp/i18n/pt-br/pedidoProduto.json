@@ -1,0 +1,25 @@
+{
+    "gestaoApp": {
+        "pedidoProduto" : {
+            "home": {
+                "title": "Pedido Produtos",
+                "createLabel": "Criar novo Pedido Produto",
+                "createOrEditLabel": "Criar ou editar Pedido Produto",
+                "search": "Pesquisar por Pedido Produto"
+            },
+            "created": "Um novo Pedido Produto foi criado com o identificador {{ param }}",
+            "updated": "Um Pedido Produto foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Pedido Produto foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Pedido Produto {{ id }}?"
+            },
+            "detail": {
+                "title": "Pedido Produto"
+            },
+            "quantidade": "Quantidade",
+            "preco": "Preco",
+            "pedido": "Pedido",
+            "produto": "Produto"
+        }
+    }
+}

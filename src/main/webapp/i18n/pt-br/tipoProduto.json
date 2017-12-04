@@ -1,0 +1,22 @@
+{
+    "gestaoApp": {
+        "tipoProduto" : {
+            "home": {
+                "title": "Tipo Produtos",
+                "createLabel": "Criar novo Tipo Produto",
+                "createOrEditLabel": "Criar ou editar Tipo Produto",
+                "search": "Pesquisar por Tipo Produto"
+            },
+            "created": "Um novo Tipo Produto foi criado com o identificador {{ param }}",
+            "updated": "Um Tipo Produto foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Tipo Produto foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Tipo Produto {{ id }}?"
+            },
+            "detail": {
+                "title": "Tipo Produto"
+            },
+            "nome": "Nome"
+        }
+    }
+}

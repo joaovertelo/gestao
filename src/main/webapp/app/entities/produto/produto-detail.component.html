@@ -1,0 +1,35 @@
+
+<div *ngIf="produto">
+    <h2><span jhiTranslate="gestaoApp.produto.detail.title">Produto</span> {{produto.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gestaoApp.produto.nome">Nome</span></dt>
+        <dd>
+            <span>{{produto.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.produto.preco">Preco</span></dt>
+        <dd>
+            <span>{{produto.preco}}</span>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.produto.categoria">Categoria</span></dt>
+        <dd>
+            <div *ngIf="produto.categoria">
+                <a [routerLink]="['/categoria', produto.categoria?.id]">{{produto.categoria?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'produto/'+ produto.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,41 @@
+
+<div *ngIf="pedidoProduto">
+    <h2><span jhiTranslate="gestaoApp.pedidoProduto.detail.title">Pedido Produto</span> {{pedidoProduto.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gestaoApp.pedidoProduto.quantidade">Quantidade</span></dt>
+        <dd>
+            <span>{{pedidoProduto.quantidade}}</span>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.pedidoProduto.preco">Preco</span></dt>
+        <dd>
+            <span>{{pedidoProduto.preco}}</span>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.pedidoProduto.pedido">Pedido</span></dt>
+        <dd>
+            <div *ngIf="pedidoProduto.pedido">
+                <a [routerLink]="['/pedido', pedidoProduto.pedido?.id]">{{pedidoProduto.pedido?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.pedidoProduto.produto">Produto</span></dt>
+        <dd>
+            <div *ngIf="pedidoProduto.produto">
+                <a [routerLink]="['/produto', pedidoProduto.produto?.id]">{{pedidoProduto.produto?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'pedido-produto/'+ pedidoProduto.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

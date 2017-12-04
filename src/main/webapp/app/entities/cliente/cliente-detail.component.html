@@ -1,0 +1,33 @@
+
+<div *ngIf="cliente">
+    <h2><span jhiTranslate="gestaoApp.cliente.detail.title">Cliente</span> {{cliente.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gestaoApp.cliente.nome">Nome</span></dt>
+        <dd>
+            <span>{{cliente.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.cliente.dataNasc">Data Nasc</span></dt>
+        <dd>
+            <span>{{cliente.dataNasc | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="gestaoApp.cliente.telefone">Telefone</span></dt>
+        <dd>
+            <span>{{cliente.telefone}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'cliente/'+ cliente.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
