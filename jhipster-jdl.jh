@@ -1,0 +1,33 @@
+
+entity Cliente {
+	nome String required minlength(5),
+    dataNasc Timestamp required, 
+    telefone String
+}
+
+entity Pedido {
+	data Timestamp
+}
+
+entity PedidoProduto {
+	pedido Pedido,
+    produto Produto,
+    quantidade Integer,
+    preco Integer
+}
+
+entity Produto {
+	nome String required,
+    preco Double required
+}
+
+entity TipoProduto {
+	nome String required
+}
+
+relationship OneToMany {
+	Cliente{pedido} to Pedido,
+	Pedido{pedidoProduto} to PedidoProduto,
+    Produto{pedidoProduto} to PedidoProduto,
+	Produto{tipoProduto} to TipoProduto
+}
