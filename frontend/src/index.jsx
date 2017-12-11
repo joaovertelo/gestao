@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import ReactDOM from 'react-dom'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -10,10 +11,15 @@ import thunk from 'redux-thunk'
 
 import Routes from './main/routes'
 import reducers from './main/reducers'
+const env = require('./.env')
+
+axios.defaults.headers.common['Authorization'] = env.authorization;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
     && window.__REDUX_DEVTOOLS_EXTENSION__()
 const store = applyMiddleware(multi, thunk, promise)(createStore)(reducers, devTools)
+
 ReactDOM.render(
     <Provider store={store}>
         <Routes />

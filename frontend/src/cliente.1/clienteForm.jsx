@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
-import { push } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 
 import LabelAndInput from '../common/form/labelAndInput'
 import { init, create } from '../cliente/clienteActions'
@@ -30,11 +30,9 @@ class ClienteForm extends Component {
     submit(e) {
         e.preventDefault()
         this.props.onSubmit(this.state.cliente)
+        //browserHistory.push('#/cliente')
+    }
 
-    }
-    click() {
-        this.context.router.push('/cliente')
-    }
 
     render() {
 
@@ -74,7 +72,7 @@ class ClienteForm extends Component {
 
                 <div className="box-footer">
                     <div className="pull-right">
-                        <button onClick={this.click.bind(this)} type='submit' className={`btn btn-primary active`}> <i className={`fa fa-floppy-o`} ></i>
+                        <button type='submit' className={`btn btn-primary active`}> <i className={`fa fa-floppy-o`} ></i>
                             <span className='span-button'>Submit</span></button>
                         <ButtonLink path='/cliente' label='Excluir' type='danger' active='active' icon='trash-o' />
                         <ButtonLink path='/cliente' label='Voltar' type='warning' active='active' icon='arrow-left' />

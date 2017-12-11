@@ -6,14 +6,23 @@ import SideBar from '../common/template/sideBar'
 import Footer from '../common/template/footer'
 import Messages from '../common/msg/messages'
 
-export default props => (
-    <div className="wrapper">
-        <Header />
-        <SideBar />
-        <div className="content-wrapper">
-            {props.children}
-        </div>
-        <Footer />
-        <Messages />
-    </div>
-)
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <div className="wrapper">
+                <Header />
+                <SideBar />
+                <div className="content-wrapper">
+                    {this.props.children}
+                </div>
+                <Footer />
+                <Messages />
+            </div>
+        )
+    }
+}
+export default App
