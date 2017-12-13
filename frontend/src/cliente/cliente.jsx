@@ -14,8 +14,6 @@ class Cliente extends Component {
         this.props.getList()
     }
 
-
-
     render() {
         return (
             <div>
@@ -25,7 +23,7 @@ class Cliente extends Component {
                     <ContentHeader title='Clientes' />
                     <Content>
 
-                        <ButtonLink path='/cliente/cadastro' label='Novo' type='primary' active='active' icon='plus' buttonFloatRight='button-float-right' />
+                        <ButtonLink path='/cliente' label='Novo' type='primary' active='active' icon='plus' buttonFloatRight='button-float-right' />
 
                         <div className="input-group col-sm-8">
                             <input type="text" className="form-control" placeholder="Pesquisar Clientes..." />

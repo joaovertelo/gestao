@@ -14,7 +14,7 @@ import reducers from './main/reducers'
 const env = require('./.env')
 
 axios.defaults.headers.common['Authorization'] = env.authorization;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers['Content-Type'] = 'application/json';
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
     && window.__REDUX_DEVTOOLS_EXTENSION__()

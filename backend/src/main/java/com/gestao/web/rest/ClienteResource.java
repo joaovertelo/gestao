@@ -79,7 +79,7 @@ public class ClienteResource {
     public ResponseEntity<Cliente> updateCliente(@Valid @RequestBody Cliente cliente) throws URISyntaxException {
         log.debug("REST request to update Cliente : {}", cliente);
         if (cliente.getId() == null) {
-            return createCliente(cliente);
+            throw new BadRequestAlertException("A cliente must have an id", ENTITY_NAME, "idnotfound");
         }
         Cliente result = clienteRepository.save(cliente);
         clienteSearchRepository.save(result);

@@ -1,9 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getList, visualizar } from './clienteActions'
+import { browserHistory, Link } from 'react-router'
+import { getList, selectCliente } from './clienteActions'
 
 class ClienteList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { vizualizar: false, editar: false }
+    }
+
+    visualizar(cliente) {
+        this.setState({ visualizar: true })
+        console.log(this.state)
+        this.props.selectCliente(cliente)
+
+    }
 
     renderRows() {
         const list = this.props.list || []
@@ -15,9 +27,11 @@ class ClienteList extends Component {
                 <td>{c.dataNasc}</td>
                 <td>{c.telefone}</td>
                 <td>
-                    <button className="btn btn-info" onClick={() => this.props.visualizar(c)} >
-                        <i className="fa fa-eye"></i>
-                    </button>
+                    <Link to='/cliente'>
+                        <button className="btn btn-info" onClick={() => this.visualizar(c)} >
+                            <i className="fa fa-eye"></i>
+                        </button>
+                    </Link>
                     <button className="btn btn-warning" onClick=''>
                         <i className="fa fa-pencil"></i>
                     </button>
@@ -52,6 +66,6 @@ class ClienteList extends Component {
 
 const mapStateToProps = state => ({ list: state.cliente.list })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getList, visualizar }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ getList, selectCliente }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClienteList)
