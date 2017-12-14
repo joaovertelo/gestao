@@ -18,3 +18,10 @@ export const deleteCategoria = (id) => ({
     type: CATEGORIA.DELETE,
     id,
 });
+
+export function handleChange(categoria) {
+    return {
+        type: 'HANDLE_CHANGE',
+        categoria
+    }
+};

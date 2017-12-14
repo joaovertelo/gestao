@@ -7,7 +7,6 @@ import { browserHistory } from 'react-router'
 import LabelAndInput from '../common/form/labelAndInput'
 import ButtonLink from '../common/template/buttonLink'
 import Grid from '../common/layout/grid'
-import InputLabel from '../common/template/inputLabel'
 import If from '../common/operator/if'
 
 class ClienteForm extends Component {

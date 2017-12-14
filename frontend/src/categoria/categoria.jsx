@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Content from '../common/template/content'
 import ContentHeader from '../common/template/contentHeader'
 import List from './categoriaList'
-import { createCategoria, updateCategoria, deleteCategoria } from './categoriaActions'
+import { createCategoria, updateCategoria, deleteCategoria, handleChange } from './categoriaActions'
 import Form from './categoriaForm'
 
 class Categoria extends Component {
@@ -14,10 +14,7 @@ class Categoria extends Component {
         super(props);
 
         this.categoria = null;
-        this.state = {
-            renderizarForm: false,
-            categoria: { nome: 'teste' }
-        };
+        this.state = { categoria: this.props.categoria, renderizarForm: false }
 
         this.renderForm = this.renderForm.bind(this);
         this.cancelForm = this.cancelForm.bind(this);
@@ -28,12 +25,7 @@ class Categoria extends Component {
         this.deleteCategoria = this.deleteCategoria.bind(this);
     }
 
-    createCategoria(e) {
-        e.preventDefault();
-        console.log(this.state)
-        const categoria = {
-            nome: e.target[0].value.trim(),
-        };
+    createCategoria(categoria) {
 
         if (!categoria.nome) {
             return;
@@ -42,8 +34,8 @@ class Categoria extends Component {
             renderizarForm: false,
         });
 
-        this.categoria = null;
         this.props.createCategoria(categoria);
+
     }
     updateCategoria(e) {
         e.preventDefault();
@@ -74,9 +66,11 @@ class Categoria extends Component {
     }
 
     renderForm(categoria = null) {
-        this.setState({
+
+        this.setState(...this.state, {
             renderizarForm: true,
         });
+
         if (categoria === null) {
             this.categoria = {};
             this.handleSubmit = this.createCategoria;
@@ -101,7 +95,6 @@ class Categoria extends Component {
                     {
                         this.state.renderizarForm
                             ? <Form
-                                categoria={this.state.categoria}
                                 handleSubmit={this.handleSubmit}
                                 cancelForm={this.cancelForm}
                             />
@@ -127,7 +120,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     createCategoria: (categoria) => { dispatch(createCategoria(categoria)); },
     updateCategoria: (categoria) => { dispatch(updateCategoria(categoria)); },
-    deleteCategoria: (id) => { dispatch(deleteCategoria(id)); },
+    deleteCategoria: (id) => { dispatch(deleteCategoria(id)); }, handleChange
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categoria);

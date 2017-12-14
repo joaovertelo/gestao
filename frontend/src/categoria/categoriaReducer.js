@@ -1,6 +1,8 @@
 import { CATEGORIA } from './categoriaActions';
 
-const initialState = [];
+const initialState = {
+    categoria: { nome: '' }
+};
 
 export default function standards(state = initialState, action) {
     switch (action.type) {
@@ -20,6 +22,12 @@ export default function standards(state = initialState, action) {
 
         case CATEGORIA.DELETE:
             return state.filter((c) => c.id !== action.id);
+        case 'HANDLE_CHANGE':
+            console.log('action', action)
+            return {
+                ...state,
+                categoria: action.categoria
+            }
 
         default:
             return state;
