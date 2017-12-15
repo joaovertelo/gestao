@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { toastr } from 'react-redux-toastr'
 
 import Content from '../common/template/content'
 import ContentHeader from '../common/template/contentHeader'
 import List from './categoriaList'
 import { createCategoria, updateCategoria, deleteCategoria, handleChange } from './categoriaActions'
 import Form from './categoriaForm'
+import Grid from '../common/layout/grid'
+import If from '../common/operator/if'
 
 class Categoria extends Component {
+
+    componentWillMount() {
+
+    }
 
     constructor(props) {
         super(props);
 
         this.categoria = null;
         this.state = { categoria: this.props.categoria, renderizarForm: false }
-
         this.renderForm = this.renderForm.bind(this);
         this.cancelForm = this.cancelForm.bind(this);
 
@@ -26,14 +32,13 @@ class Categoria extends Component {
     }
 
     createCategoria(categoria) {
-
         if (!categoria.nome) {
+            toastr.error('Validação', 'Preencha o nome')
             return;
         }
         this.setState({
             renderizarForm: false,
         });
-
         this.props.createCategoria(categoria);
 
     }
@@ -89,23 +94,29 @@ class Categoria extends Component {
     render() {
         return (
             <div>
-                <ContentHeader title='Categorias' small='Pesquisar' />
-                <Content>
-                    <button onClick={() => this.renderForm()}>Novo</button>
-                    {
-                        this.state.renderizarForm
-                            ? <Form
-                                handleSubmit={this.handleSubmit}
-                                cancelForm={this.cancelForm}
-                            />
-                            : null
-                    }
+                <ContentHeader title='Categorias' />
 
-                    <List
-                        categoria={this.props.categoria}
-                        renderForm={this.renderForm}
-                        deleteCategoria={this.deleteCategoria}
-                    />
+                <Content>
+                    <If test={this.state.renderizarForm}>
+                        <Form
+                            handleSubmit={this.handleSubmit}
+                            cancelForm={this.cancelForm}
+                        />
+                    </If>
+                    <If test={!this.state.renderizarForm}>
+                        <div >
+                            <Grid cols='12 12'>
+                                <button type="button" onClick={() => this.renderForm()} className='btn btn-primary button-float-right'>
+                                    <i className='fa fa-plus' ></i>
+                                    <span className='span-button'>Novo</span>
+                                </button >
+                            </Grid>
+                            < List
+                                categoria={this.props.categoria}
+                                deleteCategoria={this.deleteCategoria}
+                            />
+                        </div>
+                    </If>
                 </Content>
             </div >
         )

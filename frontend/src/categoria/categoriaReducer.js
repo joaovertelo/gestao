@@ -1,16 +1,22 @@
 import { CATEGORIA } from './categoriaActions';
 
 const initialState = {
-    categoria: { nome: '' }
+    categoria: { nome: '' },
+    list: []
 };
 
 export default function standards(state = initialState, action) {
     switch (action.type) {
-        case CATEGORIA.CREATE:
-            return [
+        case CATEGORIA.FETCHED:
+            return {
                 ...state,
-                action.categoria,
-            ];
+                list: action.data
+            }
+        case CATEGORIA.CREATE:
+            return {
+                ...state,
+                categoria: action.categoria.data
+            }
 
         case CATEGORIA.UPDATE:
             return state.map((c) => {
@@ -22,8 +28,7 @@ export default function standards(state = initialState, action) {
 
         case CATEGORIA.DELETE:
             return state.filter((c) => c.id !== action.id);
-        case 'HANDLE_CHANGE':
-            console.log('action', action)
+        case CATEGORIA.HANDLE_CHANGE:
             return {
                 ...state,
                 categoria: action.categoria

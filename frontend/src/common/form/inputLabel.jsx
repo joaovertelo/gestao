@@ -3,14 +3,8 @@ import React, { Component } from 'react'
 class InputLabel extends Component {
     constructor(props) {
         super(props)
-        //this.onChange = this.onChange.bind(this)
-        // this.state = { value: this.props.value }
-    }
 
-    // onChange(e) {
-    //     this.setState({ value: e.target.value })
-    //     this.props.onChange(e.target.name, e.target.value)
-    // }
+    }
 
     render() {
         return (
@@ -22,5 +16,4 @@ class InputLabel extends Component {
         );
     }
 }
-const mapStateToProps = state => ({ categoria: state.categoria.categoria })
 export default InputLabel

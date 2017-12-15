@@ -11,7 +11,6 @@ const INITITAL_STATE = {
 }
 
 export default function (state = INITITAL_STATE, action) {
-    console.log(action.type)
     switch (action.type) {
         case 'CLIENTE_FETCHED':
             return { ...state, list: action.payload.data }
