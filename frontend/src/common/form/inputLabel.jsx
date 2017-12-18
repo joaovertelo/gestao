@@ -10,8 +10,8 @@ class InputLabel extends Component {
         return (
             <div className="form-group">
                 <label htmlFor={this.props.name} >{this.props.label}</label>
-                <input value={this.props.categoria} onChange={this.props.onChange} name={this.props.name} type={this.props.type}
-                    placeholder={this.props.placeholder} className='form-control' />
+                <input value={this.props.value} onChange={this.props.onChange} name={this.props.name} type={this.props.type}
+                    placeholder={this.props.placeholder} className='form-control' readOnly={this.props.readOnly} />
             </div>
         );
     }

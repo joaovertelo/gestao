@@ -6,7 +6,7 @@ import { toastr } from 'react-redux-toastr'
 import Content from '../common/template/content'
 import ContentHeader from '../common/template/contentHeader'
 import List from './categoriaList'
-import { createCategoria, updateCategoria, deleteCategoria, handleChange } from './categoriaActions'
+import { cadastrar, createCategoria, updateCategoria, deleteCategoria, handleChange, getList } from './categoriaActions'
 import Form from './categoriaForm'
 import Grid from '../common/layout/grid'
 import If from '../common/operator/if'
@@ -14,16 +14,13 @@ import If from '../common/operator/if'
 class Categoria extends Component {
 
     componentWillMount() {
-
+        this.props.getList()
     }
 
     constructor(props) {
         super(props);
 
-        this.categoria = null;
-        this.state = { categoria: this.props.categoria, renderizarForm: false }
-        this.renderForm = this.renderForm.bind(this);
-        this.cancelForm = this.cancelForm.bind(this);
+        this.state
 
         this.createCategoria = this.createCategoria.bind(this);
         this.updateCategoria = this.updateCategoria.bind(this);
@@ -31,33 +28,30 @@ class Categoria extends Component {
         this.deleteCategoria = this.deleteCategoria.bind(this);
     }
 
+    visualizar(categoria) {
+        // this.setState({
+        //     renderizarForm: false,
+        //     categoria: categoria
+        // });
+
+
+
+    }
     createCategoria(categoria) {
         if (!categoria.nome) {
             toastr.error('Validação', 'Preencha o nome')
             return;
         }
-        this.setState({
-            renderizarForm: false,
-        });
+
         this.props.createCategoria(categoria);
 
     }
-    updateCategoria(e) {
-        e.preventDefault();
 
-        const categoria = {
-            nome: e.target[0].value.trim(),
-        };
-
+    updateCategoria(categoria) {
         if (!categoria.nome) {
+            toastr.error('Validação', 'Preencha o nome')
             return;
         }
-
-        this.setState({
-            renderizarForm: false,
-        });
-
-        this.categoria = null;
         this.props.updateCategoria(categoria);
     }
 
@@ -69,22 +63,6 @@ class Categoria extends Component {
         }
         this.props.deleteCategoria(id);
     }
-
-    renderForm(categoria = null) {
-
-        this.setState(...this.state, {
-            renderizarForm: true,
-        });
-
-        if (categoria === null) {
-            this.categoria = {};
-            this.handleSubmit = this.createCategoria;
-        } else {
-            this.categoria = categoria;
-            this.handleSubmit = this.updateCategoria;
-        }
-    }
-
     cancelForm() {
         this.setState({
             renderizarForm: false,
@@ -92,28 +70,30 @@ class Categoria extends Component {
     }
 
     render() {
+        const { renderizarForm } = this.props.categoria
         return (
             <div>
                 <ContentHeader title='Categorias' />
 
                 <Content>
-                    <If test={this.state.renderizarForm}>
+                    <If test={renderizarForm}>
                         <Form
-                            handleSubmit={this.handleSubmit}
-                            cancelForm={this.cancelForm}
+                            submitCreate={this.createCategoria.bind(this)}
+                            submitUpdate={this.updateCategoria.bind(this)}
                         />
                     </If>
-                    <If test={!this.state.renderizarForm}>
+                    <If test={!renderizarForm}>
                         <div >
                             <Grid cols='12 12'>
-                                <button type="button" onClick={() => this.renderForm()} className='btn btn-primary button-float-right'>
+                                <button type="button" onClick={this.props.cadastrar} className='btn btn-primary button-float-right'>
                                     <i className='fa fa-plus' ></i>
                                     <span className='span-button'>Novo</span>
                                 </button >
                             </Grid>
                             < List
-                                categoria={this.props.categoria}
-                                deleteCategoria={this.deleteCategoria}
+                                list={this.props.list}
+                                visualizar={this.visualizar}
+                                cancelForm={this.cancelForm}
                             />
                         </div>
                     </If>
@@ -126,12 +106,10 @@ class Categoria extends Component {
 
 const mapStateToProps = (state) => ({
     categoria: state.categoria,
+    list: state.categoria.list,
+    renderizarForm: state.renderizarForm
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    createCategoria: (categoria) => { dispatch(createCategoria(categoria)); },
-    updateCategoria: (categoria) => { dispatch(updateCategoria(categoria)); },
-    deleteCategoria: (id) => { dispatch(deleteCategoria(id)); }, handleChange
-});
+const mapDispatchToProps = dispatch => bindActionCreators({ cadastrar, getList, createCategoria, updateCategoria, deleteCategoria, handleChange }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categoria);

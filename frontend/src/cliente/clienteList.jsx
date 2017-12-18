@@ -12,7 +12,6 @@ class ClienteList extends Component {
 
     visualizar(cliente) {
         this.setState({ visualizar: true })
-        console.log(this.state)
         this.props.selectCliente(cliente)
 
     }

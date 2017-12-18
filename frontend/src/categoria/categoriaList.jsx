@@ -1,22 +1,20 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { visualizar, editar } from './categoriaActions'
 
+class CategoriaList extends Component {
 
-const List = ({ categoria, deleteCategoria }) => (
-    <table className='table table-striped table-bordered'>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th className='table-actions'>ACTIONS</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{categoria.nome}</td>
+    renderRows() {
+        const list = this.props.list || []
+        return list.map(c => (
+            <tr key={c.id}>
+                <td>{c.nome}</td>
                 <td>
                     <button className="btn btn-info" onClick={() => this.props.visualizar(c)} >
                         <i className="fa fa-eye"></i>
                     </button>
-                    <button className="btn btn-warning" onClick=''>
+                    <button className="btn btn-warning" onClick={() => this.props.editar(c)}>
                         <i className="fa fa-pencil"></i>
                     </button>
                     <button className="btn btn-danger" onClick=''>
@@ -24,8 +22,28 @@ const List = ({ categoria, deleteCategoria }) => (
                     </button>
                 </td>
             </tr>
-        </tbody>
-    </table>
-);
+        ))
+    }
 
-export default List;
+    render() {
+        return (
+            <table className='table table-striped table-bordered' >
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th className='table-actions'>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        );
+    }
+}
+
+const mapStateToProps = state => ({ list: state.categoria.list })
+
+const mapDispatchToProps = dispatch => bindActionCreators({ visualizar, editar }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriaList)

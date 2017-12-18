@@ -85,6 +85,5 @@ function submit(values, method) {
 export function init() {
     return [
         getList()
-
     ]
 }
