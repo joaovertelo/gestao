@@ -52,10 +52,10 @@ export const createCategoria = (categoria) => {
 
         const request = axios.post(`${BASE_URL}/categorias`, categoria)
             .then(resp => {
-                toastr.success('Sucesso', `Cliente criado com sucesso.`)
+                toastr.success('Sucesso', `Categoria criado com sucesso.`)
                 dispatch(init())
             }).catch(e => {
-                toastr.error('Error', `Erro ao criar cliente ${e}`)
+                toastr.error('Error', `Erro ao criar Categoria ${e}`)
                 //e.response.data.errors.forEach(error => toastr.error('Erro', error))
             })
     }
@@ -67,25 +67,23 @@ export const updateCategoria = (categoria) => {
         categoria = JSON.stringify(categoria)
         const request = axios.put(`${BASE_URL}/categorias`, categoria)
             .then(resp => {
-                toastr.success('Sucesso', `Cliente atualizado com sucesso.`)
+                toastr.success('Sucesso', `Categoria atualizado com sucesso.`)
                 dispatch(init())
             }).catch(e => {
-                toastr.error('Error', `Erro ao criar cliente ${e}`)
+                toastr.error('Error', `Erro ao salvar Categoria ${e}`)
             })
     }
 }
 
 export const deleteCategoria = (id) => {
     return dispatch => {
-
-        categoria = JSON.stringify(categoria)
-        console.log('atualizar', categoria)
-        const request = axios.put(`${BASE_URL}/categorias`, categoria)
+        console.log('delete', id)
+        const request = axios.delete(`${BASE_URL}/categorias/${id}`)
             .then(resp => {
-                toastr.success('Sucesso', `Cliente atualizado com sucesso.`)
+                toastr.success('Sucesso', `Categoria excluido com sucesso.`)
                 dispatch(init())
             }).catch(e => {
-                toastr.error('Error', `Erro ao criar cliente ${e}`)
+                toastr.error('Error', `Erro ao excluir Categoria ${e}`)
             })
     }
 }

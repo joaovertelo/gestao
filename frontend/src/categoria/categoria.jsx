@@ -19,24 +19,13 @@ class Categoria extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state
-
+        
         this.createCategoria = this.createCategoria.bind(this);
         this.updateCategoria = this.updateCategoria.bind(this);
 
         this.deleteCategoria = this.deleteCategoria.bind(this);
     }
 
-    visualizar(categoria) {
-        // this.setState({
-        //     renderizarForm: false,
-        //     categoria: categoria
-        // });
-
-
-
-    }
     createCategoria(categoria) {
         if (!categoria.nome) {
             toastr.error('Validação', 'Preencha o nome')

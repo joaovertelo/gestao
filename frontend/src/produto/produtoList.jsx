@@ -1,25 +1,23 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
-
-import { getList } from './produtoActions'
+import { bindActionCreators } from 'redux';
+import { visualizar, editar, excluir } from './produtoActions'
 
 class ProdutoList extends Component {
-    componentWillMount() {
-        this.props.getList()
-    }
 
     renderRows() {
         const list = this.props.list || []
-        return list.map(p => (
-            <tr key={p.id}>
-                <td>{p.nome}</td>
-                <td>{p.preco}</td>
+        return list.map(c => (
+            <tr key={c.id}>
+                <td>{c.nome}</td>
                 <td>
-                    <button className="btn btn-warning" >
+                    <button className="btn btn-info" onClick={() => this.props.visualizar(c)} >
+                        <i className="fa fa-eye"></i>
+                    </button>
+                    <button className="btn btn-warning" onClick={() => this.props.editar(c)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" >
+                    <button className="btn btn-danger" onClick={() => this.props.excluir(c.id)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -29,26 +27,23 @@ class ProdutoList extends Component {
 
     render() {
         return (
-            <div>
-                <table className="table">
-                    <thead>
-                        <tr >
-                            <th>Nome</th>
-                            <th>Preço</th>
-                            <th className='table-actions'>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
-                </table>
-            </div>
-        )
+            <table className='table table-striped table-bordered' >
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th className='table-actions'>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        );
     }
 }
 
 const mapStateToProps = state => ({ list: state.produto.list })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getList }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ visualizar, editar, excluir }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProdutoList)
