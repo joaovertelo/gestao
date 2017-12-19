@@ -9,7 +9,7 @@ import List from './produtoList'
 import { cadastrar, create, update, excluir, handleChange, getList } from './produtoActions'
 import Form from './produtoForm'
 import Grid from '../common/layout/grid'
-import If from '../common/operator/if'
+import If from '../common/operator/if'  
 
 class Produto extends Component {
 
