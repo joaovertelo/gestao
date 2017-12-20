@@ -63,8 +63,9 @@ export const create = (produto) => {
 
 export const update = (produto) => {
     return dispatch => {
-
+        
         produto = JSON.stringify(produto)
+
         const request = axios.put(`${BASE_URL}/produtos`, produto)
             .then(resp => {
                 toastr.success('Sucesso', `Produto atualizado com sucesso.`)
@@ -77,7 +78,6 @@ export const update = (produto) => {
 
 export const excluir = (id) => {
     return dispatch => {
-        console.log('delete', id)
         const request = axios.delete(`${BASE_URL}/produtos/${id}`)
             .then(resp => {
                 toastr.success('Sucesso', `Produto excluido com sucesso.`)

@@ -10,9 +10,11 @@ import com.gestao.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -98,7 +100,7 @@ public class CategoriaResource {
     public List<Categoria> getAllCategorias() {
         log.debug("REST request to get all Categorias");
         return categoriaRepository.findAll();
-        }
+    }
 
     /**
      * GET  /categorias/:id : get the "id" categoria.
@@ -124,8 +126,13 @@ public class CategoriaResource {
     @Timed
     public ResponseEntity<Void> deleteCategoria(@PathVariable Long id) {
         log.debug("REST request to delete Categoria : {}", id);
-        categoriaRepository.delete(id);
-        categoriaSearchRepository.delete(id);
+        try {
+            categoriaRepository.delete(id);
+            categoriaSearchRepository.delete(id);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(403).build();
+        }
+
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 

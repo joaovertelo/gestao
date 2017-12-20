@@ -11,6 +11,7 @@ class Form extends Component {
     constructor(props) {
         super(props)
         this.onChange = this.onChange.bind(this)
+        this.onChangeCategoria = this.onChangeCategoria.bind(this)
         this.state = {
             produto: this.props.produto,
             listCategorias: this.props.listCategorias || []
@@ -23,8 +24,19 @@ class Form extends Component {
 
     onChange(e) {
         this.setState({ produto: { ...this.state.produto, [e.target.name]: e.target.value } })
-        console.log('produto', this.state.produto)
-        //this.props.handleChange(this.state.produto)
+
+    }
+
+    onChangeCategoria(e) {
+        this.setState({
+            produto: {
+                ...this.state.produto,
+                categoria: {
+                    id: e.target.value
+                }
+            }
+        })
+        console.log('categoria', this.state)
     }
 
     onSubmit(e) {
@@ -38,12 +50,14 @@ class Form extends Component {
     }
 
     carregarCategorias() {
+        const padrao = [<option value='' key='default'> Selecione... </option>]
         const listCategorias = this.props.listCategorias || []
-        return listCategorias.map(
+
+        return padrao.concat(listCategorias.map(
             c => (
                 <option value={c.id} key={c.id} > {c.id} - {c.nome} </option>
             )
-        )
+        ))
     }
 
     render() {
@@ -58,7 +72,7 @@ class Form extends Component {
                             type='number' placeholder='Preço...' readOnly={this.props.readOnly} />
                         <div className="form-group ">
                             <label htmlFor="categoria">Categoria:</label>
-                            <select value={this.state.produto.categoria} onChange={this.onChange} className="form-control" name="categoria" disabled={this.props.readOnly}>
+                            <select value={this.state.produto.categoria.id} onChange={this.onChangeCategoria} className="form-control" name="categoria" disabled={this.props.readOnly}>
                                 {this.carregarCategorias()}
                             </select>
                         </div>

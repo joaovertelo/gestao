@@ -4,7 +4,7 @@ const initialState = {
     produto: {
         nome: '',
         preco: '',
-        categoria: ''
+        categoria: { id: '' }
     },
     list: [],
     listCategorias: [],

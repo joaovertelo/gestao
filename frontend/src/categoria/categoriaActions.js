@@ -77,15 +77,18 @@ export const updateCategoria = (categoria) => {
 
 export const deleteCategoria = (id) => {
     return dispatch => {
-        console.log('delete', id)
         const request = axios.delete(`${BASE_URL}/categorias/${id}`)
             .then(resp => {
                 toastr.success('Sucesso', `Categoria excluido com sucesso.`)
                 dispatch(init())
             }).catch(e => {
-                toastr.error('Error', `Erro ao excluir Categoria ${e}`)
-            })
-    }
+                if (e.response.status === 403) {
+                    toastr.error('Erro', `Ainda existem produtos associados `)
+                } else {
+                    toastr.error('Error', `Erro ao excluir Categoria ${e}`)
+                }
+    })
+}
 }
 
 export function handleChange(categoria) {
