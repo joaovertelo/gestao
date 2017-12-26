@@ -9,7 +9,7 @@ import List from './produtoList'
 import { cadastrar, create, update, excluir, handleChange, getList } from './produtoActions'
 import Form from './produtoForm'
 import Grid from '../common/layout/grid'
-import If from '../common/operator/if'  
+import If from '../common/operator/if'
 
 class Produto extends Component {
 
@@ -26,23 +26,28 @@ class Produto extends Component {
         this.excluir = this.excluir.bind(this);
     }
 
-
-    create(produto) {
+    preencheuForm(produto) {
         if (!produto.nome) {
             toastr.error('Validação', 'Preencha o nome')
-            return;
+            return false;
         }
+        if (!produto.preco) {
+            toastr.error('Validação', 'Preencha o preço')
+            return false;
+        }
+        return true
+    }
 
-        this.props.create(produto);
-
+    create(produto) {
+        if (this.preencheuForm(produto)) {
+            this.props.create(produto);
+        }
     }
 
     update(produto) {
-        if (!produto.nome) {
-            toastr.error('Validação', 'Preencha o nome')
-            return;
+        if (this.preencheuForm(produto)) {
+            this.props.update(produto);
         }
-        this.props.update(produto);
     }
 
     excluir(id) {

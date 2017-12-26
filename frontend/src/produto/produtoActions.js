@@ -45,11 +45,20 @@ export function getList() {
     }
 }
 
+export function getListCategorias() {
+    const request = axios.get(`${BASE_URL}/categorias`)
+    return {
+        type: PRODUTO.FETCHED,
+        payload: request
+    }
+}
+
 export const create = (produto) => {
     return dispatch => {
-
+        if (produto.categoria.id === '') {
+            delete produto.categoria
+        }
         produto = JSON.stringify(produto)
-        console.log(produto)
         const request = axios.post(`${BASE_URL}/produtos`, produto)
             .then(resp => {
                 toastr.success('Sucesso', `Produto criado com sucesso.`)
@@ -63,7 +72,9 @@ export const create = (produto) => {
 
 export const update = (produto) => {
     return dispatch => {
-        
+        if (produto.categoria.id === '') {
+            delete produto.categoria
+        }
         produto = JSON.stringify(produto)
 
         const request = axios.put(`${BASE_URL}/produtos`, produto)

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { handleChange, cancel } from './produtoActions'
+import { handleChange, cancel, editar } from './produtoActions'
 import { getList as getListCategoria } from '../categoria/categoriaActions'
 
 import InputLabel from '../common/form/inputLabel'
+import If from '../common/operator/if'
 
 class Form extends Component {
     constructor(props) {
@@ -36,7 +37,6 @@ class Form extends Component {
                 }
             }
         })
-        console.log('categoria', this.state)
     }
 
     onSubmit(e) {
@@ -79,6 +79,9 @@ class Form extends Component {
                     </div>
                     <div className="panel-footer">
                         <button disabled={this.props.readOnly} type="submit" className='btn btn-primary' > Salvar</button>
+                        <If test={this.props.readOnly}>
+                            <button type="button" onClick={() => this.props.editar(this.state.produto)} className='btn btn-warning' > Editar</button>
+                        </If>
                         <button type="button" onClick={this.props.cancel} className='btn btn-danger'> Cancelar </button>
                     </div>
                 </div>
@@ -95,6 +98,6 @@ const mapStateToProps = state => ({
     readOnly: state.produto.readOnly
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ handleChange, cancel, getListCategoria }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ handleChange, cancel, getListCategoria, editar }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

@@ -5,19 +5,40 @@ import { visualizar, editar, excluir } from './produtoActions'
 
 class ProdutoList extends Component {
 
+    constructor(props) {
+        super(props)
+        this.visualizar = this.visualizar.bind(this)
+    }
+
+    visualizar(p) {
+        this.tratarCategoriaVazio(p)
+        this.props.visualizar(p)
+    }
+
+    editar(p) {
+        this.tratarCategoriaVazio(p)
+        this.props.editar(p)
+    }
+
+    tratarCategoriaVazio(p) {
+        if (p.categoria === null) {
+            p.categoria = { id: '' }
+        }
+    }
+
     renderRows() {
         const list = this.props.list || []
-        return list.map(c => (
-            <tr key={c.id}>
-                <td>{c.nome}</td>
+        return list.map(p => (
+            <tr key={p.id}>
+                <td>{p.nome}</td>
                 <td>
-                    <button className="btn btn-info" onClick={() => this.props.visualizar(c)} >
+                    <button className="btn btn-info" onClick={() => this.visualizar(p)} >
                         <i className="fa fa-eye"></i>
                     </button>
-                    <button className="btn btn-warning" onClick={() => this.props.editar(c)}>
+                    <button className="btn btn-warning" onClick={() => this.editar(p)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.excluir(c.id)}>
+                    <button className="btn btn-danger" onClick={() => this.props.excluir(p.id)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
